@@ -1,4 +1,7 @@
 # 🚀 Project Name
+## IMPORTANT ###
+Before cloning this repo please run the below command
+git lfs install  
 
 ## 📌 Table of Contents
 - [Introduction](#introduction)
@@ -61,6 +64,11 @@ Describe the major technical or non-technical challenges your team encountered.
 
 
 #### To Run/Debug #####################
+## IMPORTANT ###
+Before cloning this repo please run the below command
+git lfs install  
+
+
 Install Python on the system
 
 Create Virtual environment: Go to View -> Command Palette -> select Python:Create Environment -> select requirement.txt 
