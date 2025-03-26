@@ -8,16 +8,17 @@ git lfs install
 Before cloning this repo please run the below command
 git lfs install  
 
+[*****Please refer to "How To Document.docx" in root folder *****]
 
 Install Python on the system
 
 Create Virtual environment: Go to View -> Command Palette -> select Python:Create Environment -> select requirement.txt 
 
-Goto code folder level and open command prompt and run ".\.venv\Scripts\activate" to activate the virtual environment
+Goto root folder level and open command prompt and run ".\.venv\Scripts\activate" to activate the virtual environment
 
 Go to View -> Command Palette -> select Python: Select Interpreter and choose the ('.venv') interpretter
 
-Install dependencies: In same command prompt, go to code folder path ((.venv) C:\Users\<<UpdatePath>>\gaied-mail-swifters\code>) and run this command: pip install -r ./requirements.txt
+Install dependencies if needed: In same command prompt, go to code folder path ((.venv) C:\Users\<<UpdatePath>>\gaied-mail-swifters\code>) and run this command: pip install -r ./requirements.txt
 
 Update "FLASK_APP" in launch.json under .vscode folder (create if not exists)
 "FLASK_APP": "C:\\Users\\<absolute path>\\gaied-mail-swifters\\code\\src\\main-custom-model.py", // path to your main-custom-model.py
