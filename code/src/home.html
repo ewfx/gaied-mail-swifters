@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commercial Banking - Email Classification System</title>
+  <style>
+    .container { font-family: Arial, sans-serif; margin: 40px auto; max-width: 600px; }
+    h1 { color: #007bff; text-align: center; }
+    h2 { text-align: center; }
+    .upload-section { margin-top: 20px; text-align: center; }
+    input { margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { margin-top: 10px; padding: 12px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:disabled { background-color: #ccc; cursor: not-allowed; }
+    .error { color: red; margin-top: 10px; }
+    .response-section { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+    p { margin: 10px 0; font-size: 14px; }
+    strong { color: #333; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Commercial Banking - Email Classification System</h1>
+
+    <div class="upload-section">
+      <p>Supported file types: <strong>.eml, .doc, .docx, .pdf, .jpg</strong></p>
+      <input type="file" id="fileInput" accept=".eml,.doc,.docx,.pdf,.jpg" />
+      <button onclick="uploadFile()" id="uploadButton" disabled>Upload</button>
+      <p class="error" id="error"></p>
+    </div>
+
+    <div class="response-section" id="responseSection" style="display:none;">
+      <h2>Classification Result</h2>
+      <p><strong>Request Type:</strong> <span id="requesttype"></span></p>
+      <p><strong>Subrequest Type:</strong> <span id="subrequesttype"></span></p>
+      <p><strong>Confidence:</strong> <span id="confidence"></span></p>
+      <p><strong>Duplicate:</strong> <span id="duplicate"></span></p>
+      <p><strong>Reasoning:</strong> <span id="reasoning"></span></p>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadButton = document.getElementById('uploadButton');
+    const errorElement = document.getElementById('error');
+    const responseSection = document.getElementById('responseSection');
+
+    fileInput.addEventListener('change', function() {
+      const file = fileInput.files[0];
+      if (file) {
+        const allowedExtensions = ['.eml', '.doc', '.docx', '.pdf', '.jpg'];
+        const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          errorElement.textContent = 'Invalid file type. Only .eml, .doc, .docx, .pdf, and .jpg are allowed.';
+          uploadButton.disabled = true;
+        } else {
+          errorElement.textContent = '';
+          uploadButton.disabled = false;
+        }
+      }
+    });
+
+    function uploadFile() {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('email', file);
+
+      fetch('http://localhost:5000/classification', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('requesttype').textContent = data.requesttype;
+        document.getElementById('subrequesttype').textContent = data.subrequesttype;
+        document.getElementById('confidence').textContent = data.confidence;
+        document.getElementById('duplicate').textContent = data.duplicate ? 'Yes' : 'No';
+        document.getElementById('reasoning').textContent = data.reasoning;
+
+        responseSection.style.display = 'block';
+        errorElement.textContent = ''; // Clear any errors
+        fileInput.value = ''; // Reset input after successful upload
+        uploadButton.disabled = true; // Disable upload button after upload
+      })
+      .catch(error => {
+        errorElement.textContent = 'Error uploading file. Please try again.';
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>

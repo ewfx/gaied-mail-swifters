@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+PyPDF2
+python-multipart
+flask
+pandas
+openpyxl
+joblib
+scikit-learn
+torch
+datasets
+transformers
+accelerate>=0.26.0
+pymupdf
+python-docx
+pytesseract
+flask_cors
