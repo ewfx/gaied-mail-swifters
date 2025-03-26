@@ -1,12 +1,10 @@
 fastapi
 uvicorn
 PyPDF2
-openai
 python-multipart
 flask
 pandas
 openpyxl
-xgboost
 joblib
 scikit-learn
 torch
@@ -16,3 +14,4 @@ accelerate>=0.26.0
 pymupdf
 python-docx
 pytesseract
+flask_cors

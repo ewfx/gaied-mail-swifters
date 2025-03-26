@@ -10,8 +10,10 @@ from PIL import Image
 from flask import Flask, request, jsonify
 from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
 from io import BytesIO
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 # Load trained model and tokenizer
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -86,9 +88,9 @@ def classify_text(text):
     with torch.no_grad():
         outputs = model(**inputs)
 
-    temperature = 0.1  
+    temperature = 0.05  
     logits = outputs.logits / temperature
-    logits = logits**2  
+    logits = logits**4  
     probs = torch.nn.functional.softmax(logits, dim=-1)
 
     confidence, predicted_idx = torch.max(probs, dim=-1)
@@ -111,7 +113,7 @@ def detect_duplicate(text):
     """Detects if the given text has been processed before."""
     return text in processed_texts
 
-@app.route("/classify", methods=["POST"])
+@app.route("/classification", methods=["POST"])
 def classify_email():
     """API endpoint to classify emails and attachments."""
     if "email" not in request.files:

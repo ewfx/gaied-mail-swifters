@@ -24,7 +24,9 @@
     "13": "LABEL_13",
     "14": "LABEL_14",
     "15": "LABEL_15",
-    "16": "LABEL_16"
+    "16": "LABEL_16",
+    "17": "LABEL_17",
+    "18": "LABEL_18"
   },
   "initializer_range": 0.02,
   "label2id": {
@@ -37,6 +39,8 @@
     "LABEL_14": 14,
     "LABEL_15": 15,
     "LABEL_16": 16,
+    "LABEL_17": 17,
+    "LABEL_18": 18,
     "LABEL_2": 2,
     "LABEL_3": 3,
     "LABEL_4": 4,
